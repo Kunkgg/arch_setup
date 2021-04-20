@@ -1,0 +1,50 @@
+#!/bin/bash
+
+HTTP="http://127.0.0.1:1081"
+HTTPS=${HTTP}
+SOCKS="socks5://127.0.0.1:1080"
+EXCLUDE="localhost,127.0.0.1,localaddress,.localdomain.com,192.168.0.*"
+
+function proxy_up
+{
+       export http_proxy=$HTTP \
+              https_proxy=$HTTPS \
+              all_proxy=$HTTP \
+              no_proxy=$EXCLUDE
+        if [ -n "$(env | grep _proxy)" ]
+        then
+                echo "Proxy Up."
+        fi
+
+}
+
+function proxy_down
+{
+       unset  http_proxy \
+              https_proxy \
+              all_proxy \
+              no_proxy
+        if [ -z "$(env | grep _proxy)" ]
+        then
+            echo "Proxy Down."
+            return 0
+        else
+            echo "Failed to unset proxy envs."
+            return 1
+        fi
+}
+
+function proxy_show
+{
+        env | grep proxy
+}
+
+function proxy_http_only
+{
+    proxy_up > /dev/null;
+    unset all_proxy \
+          no_proxy
+    proxy_ls
+}
+
+proxy_up >/dev/null
