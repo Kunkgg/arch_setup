@@ -1,0 +1,155 @@
+{
+  "log": {
+    "loglevel": "warn",
+    "access": "/var/log/v2ray/access.log",
+    "error": "/var/log/v2ray/error.log"
+  },
+
+  "inbounds": [
+    {
+      "port": 1080,
+      "listen": "0.0.0.0",
+      "tag": "socks-inbound",
+      "protocol": "socks",
+
+      "settings": {
+        "auth": "noauth",
+        "udp": true,
+        "ip": "127.0.0.1"
+      },
+
+      "sniffing": {
+        "enabled": true,
+        "destOverride": ["http", "tls"]
+      }
+    },
+    {
+      "port": 1081,
+      "listen": "0.0.0.0",
+      "tag": "http-inbound",
+      "protocol": "http",
+
+      "settings": {
+        "auth": "noauth",
+        "udp": true,
+        "ip": "127.0.0.1"
+      },
+
+      "sniffing": {
+        "enabled": true,
+        "destOverride": ["http", "tls"]
+      }
+    }
+  ],
+
+  "outbounds": [
+    {
+      "sendThrough": "0.0.0.0",
+      "protocol": "vmess",
+      "settings": {
+        "vnext": [
+          {
+            "address": "ADDRESS",
+            "port": 443,
+            "users": [
+              {
+                "id": "IDKEY",
+                "alterId": 64,
+                "security": "auto",
+                "level": 0
+              }
+            ],
+            "remark": "vbox"
+          }
+        ]
+      },
+      "streamSettings": {
+        "wsSettings": {
+          "path": "/ray",
+          "headers": {
+            "Host": ""
+          }
+        },
+        "tcpSettings": {
+          "header": {
+            "type": "none"
+          }
+        },
+        "security": "tls",
+        "tlsSettings": {
+          "serverName": "",
+          "allowInsecure": false
+        },
+        "httpSettings": {
+          "path": "/ray",
+          "host": [""]
+        },
+        "network": "ws"
+      }
+    },
+    {
+      "protocol": "freedom",
+      "settings": {},
+      "tag": "direct"
+    },
+    {
+      "protocol": "blackhole",
+      "settings": {},
+      "tag": "blocked"
+    }
+  ],
+
+  "routing": {
+    "domainStrategy": "IPOnDemand",
+    "rules": [
+      {
+        "type": "field",
+        "outboundTag": "direct",
+        "ip": ["geoip:private", "geoip:cn"]
+      },
+      {
+        "type": "field",
+        "outboundTag": "direct",
+        "domain": [
+          "domain:v2ex.com",
+          "domain:icloud.com",
+          "domain:icloud-content.com",
+          "domain:cdn-apple.com",
+          "domain:gradle.com",
+          "geosite:jsdelivr",
+          "geosite:cn"
+        ]
+      },
+      {
+        "type": "field",
+        "domain": ["geosite:category-ads", "geosite:category-porn"],
+        "outboundTag": "blocked"
+      }
+    ]
+  },
+
+  "dns": {
+    "hosts": {
+      "domain:v2ray.com": "www.vicemc.net",
+      "domain:github.io": "pages.github.com",
+      "domain:wikipedia.org": "www.wikimedia.org",
+      "domain:shadowsocks.org": "electronicsrealm.com"
+    },
+    "servers": [
+      {
+        "address": "223.5.5.5",
+        "port": 53,
+        "domains": ["geosite:cn"]
+      },
+      {
+        "address": "114.114.114.114",
+        "port": 53,
+        "domains": ["geosite:cn"]
+      },
+      "182.254.116.116",
+      "8.8.8.8",
+      "localhost"
+    ]
+  },
+  "other": {}
+}

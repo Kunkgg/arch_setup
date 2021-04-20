@@ -1,0 +1,56 @@
+#!/bin/bash
+#
+# 1. Install v2ray by pacman
+# 2. Configure v2ray with symbol link
+#
+# Author: gk07 <goukun07@gmail.com>
+#
+
+[[ -z $BASE ]] && source ./utils.sh
+
+v2ray_key="../arch_setup_keys/v2ray.dec"
+
+main() {
+    install_v2ray
+    replace_key
+    config_v2ray
+}
+
+#{{{ Helper functions
+install_v2ray() {
+    sudo pacman -S --needed --noconfirm v2ray
+    if (( $? == 0 )); then
+        echo "Installed v2ray"
+    fi
+}
+
+replace_key() {
+    # https://gist.githubusercontent.com/Kunkgg/50db10ae95921c48607e78acf419b092/raw/e06fa5b52f6416bd8d08f7cf09ab6df7c874879f/v2ray_client_cofnig.json
+    [[ -e "${v2ray_key}" ]] && source "${v2ray_key}"
+    sed -i "s/IDKEY/${v2ray_id}/" v2ray_client_config.json
+    sed -i "s/ADDRESS/${v2ray_address}/" v2ray_client_config.json
+    if (( $? == 0 )); then
+        echo "Set v2ray id and address"
+    fi
+}
+
+config_v2ray() {
+    local des="/etc/v2ray/config.json"
+    local src="$(realpath v2ray_client_config)"
+
+    sudo mkdir -v -p /etc/v2ray
+    sudo ln -f "${src}" "${des}"
+
+    sudo mkdir -v -p /var/log/v2ray
+    sudo touch /var/log/v2ray/{access,error}.log
+    sudo chmod a+w /var/log/v2ray/{access,error}.log
+
+    sudo systemctl enable v2ray.service --now
+
+    if (( $? == 0 )); then
+        echo "Enabled v2ray"
+    fi
+}
+#}}}
+
+main
