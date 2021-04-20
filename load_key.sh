@@ -1,11 +1,8 @@
 #!/bin/bash
 # Load encrpted v2ray, git keys from private repos
-# IyBodHRwczovL2dpc3QuZ2l0aHVidXNlcmNvbnRlbnQuY29tL0t1bmtnZy9mNzFk
-# ZjZkZjM1OTEwYWNkNzQ2ZTlhOWFlMDBjMTY5Ni9yYXcvOTNiNjZmMDc1NGExZmEx
-# NWYyMzQ3OGY2ZjVjZjhiZmQxMWZodHRwczovL2dpc3QuZ2l0aHVidXNlcmNvbnRl
-# bnQuY29tL0t1bmtnZy9mNzFkZjZkZjM1OTEwYWNkNzQ2ZTlhOWFlMDBjMTY5Ni9y
-# YXcvOTNiNjZmMDc1NGExZmExNWYyMzQ3OGY2ZjVjZjhiZmQxMWZkYzJiZS9yYW5k
-# b20udHh0ZGMyYmUvcmFuZG9tLnR4dAo=
+# aHR0cHM6Ly9naXN0LmdpdGh1YnVzZXJjb250ZW50LmNvbS9LdW5rZ2cvZjcxZGY2
+# ZGYzNTkxMGFjZDc0NmU5YTlhZTAwYzE2OTYvcmF3LzkzYjY2ZjA3NTRhMWZhMTVm
+# MjM0NzhmNmY1Y2Y4YmZkMTFmZGMyYmUvcmFuZG9tLnR4dAo=
 
 # LTI1Ni1jYmMgLWl0ZXIgMjIgLXBia2RmMgo=
 
