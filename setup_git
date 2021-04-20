@@ -1,0 +1,58 @@
+#!/bin/bash
+#
+# 1. Install git by pacman
+# 2. Link git config
+#
+# Author: gk07 <goukun07@gmail.com>
+#
+# [[ -z $BASE ]] && source ./utils.sh
+
+main() {
+    install_git
+    config_git
+}
+
+#{{{ Helper functions
+install_git() {
+    sudo pacman -S --needed --noconfirm git
+    if (( $? == 0 )); then
+        log "Installed git"
+    fi
+}
+
+config_git() {
+    local des="$HOME/.config/git/config"
+    mkdir -v -p $(dirname ${des})
+
+    cat << EOF > "${des}"
+[user]
+	email = gk_520@hotmail.com
+	name = gk07
+[core]
+	editor = nvim
+	excludesfile = /home/gk07/.config/git/gitignore_global
+[filter "lfs"]
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+[http]
+    proxy=http://127.0.0.1:1081
+[https]
+    proxy=http://127.0.0.1:1081
+[socks]
+    proxy=socks5://127.0.0.1:1080
+[color]
+	diff = auto
+	status = auto
+	branch = auto
+	interactive = auto
+	ui = true
+	pager = true
+[pull]
+	ff = only
+EOF
+}
+#}}}
+
+main
