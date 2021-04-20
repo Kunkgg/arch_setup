@@ -1,0 +1,34 @@
+= Setup arch
+:author: Goukun <goukun07@gmail.com>
+:date: 2021-04-20
+:toc:
+:icons: font
+:library: Asciidoctor
+// ifdef::asciidoctor[]
+// :source-highlighter: coderay
+// endif::asciidoctor[]
+:idprefix:
+// :stylesheet: ../../resources/asciidoctor.css
+:imagesdir: images
+:includesdir: includes
+//:title-logo-image: image:logo.png[pdfwidth=3.00in,align=center]
+//:backend: docbook45
+//:backend: html5
+//:doctype: book
+//:sectids!:
+:plus: &#43;
+//:revealjsdir: ../../resources/reveal.js
+//:revealjs_theme: black
+// available themes: black beige blood league moon night serif simple sky solarized white
+
+// refs
+:url-github: https://github.com/Kunkgg
+//:url-blog: http-to-my-blog
+
+. Sort pacman mirror list with reflector
+. Install setup requirements git, stow, neovim
+. Load encrpted v2ray, git keys from private repos
+. Setup v2ray and proxy setting helper
+. Setup git config
+. Change current repos remote from https to ssh
+. Sync dotfiles submodule
