@@ -36,7 +36,7 @@ replace_key() {
 
 config_v2ray() {
     local des="/etc/v2ray/config.json"
-    local src="$(realpath v2ray_client_config)"
+    local src="$(realpath v2ray_client_config.json)"
 
     sudo mkdir -v -p /etc/v2ray
     sudo ln -f "${src}" "${des}"
