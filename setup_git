@@ -16,7 +16,7 @@ main() {
 install_git() {
     sudo pacman -S --needed --noconfirm git
     if (( $? == 0 )); then
-        log "Installed git"
+        echo "Installed git"
     fi
 }
 
